@@ -50,8 +50,8 @@
               method: 'get',
               url: 'EzUpdateData.json',
             }).then((response) => {
+              console.log(response.data)
               let resp = JSON.parse(response.data)
-              console.log(resp)
               if (resp.languages){
                 if (resp.languages.know){
                   this.languages.know = resp.languages.know
