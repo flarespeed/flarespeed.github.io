@@ -2,9 +2,63 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Holden Bock | webdev</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style media="screen">
+      body{
+        margin: 0 0;
+      }
+    </style>
   </head>
   <body>
-    Hello World
+    <div id="app">
+      <h3>Hi, I'm Holden Bock.</h3>
+      <div class="intro">
+        I'm a full stack web dev and aspiring indie game dev.
+      </div>
+      <div class="language">
+        <span v-if="languages.know.length">I have experience coding in <span v-for="(lang, index) in languages.know">{{lang}}<span v-if="index+1 != languages.know.length">, </span></span></span><span v-if="languages.dabbled.length">, and have dabbled in <span v-for="(lang, index) in languages.dabbled">{{lang}}<span v-if="index+1 != languages.dabbled.length">, </span></span></span><span v-if="languages.know.length || languages.dabbled.length">.</span><br>
+        <span v-if="libraries.length">I have experience using <span v-for="(lib, index) in libraries">{{lib}}<span v-if="index+1 != libraries.length">, </span></span>.</span>
+      </div>
+      <div class="learningAndInterests">
+        <span v-if="learning.length">I am currently learning <span v-for="(learn, index) in learning">{{learn}}<span v-if="index+1 != learning.length">, </span></span><span v-if="interests.length"> and </span></span><span v-if="interests.length">I am interested in <span v-for="(interest, index) in interests">{{interest}}<span v-if="index+1 != interests.length">, </span></span></span><span v-if="learning.length || interests.length">.</span>
+      </div>
+      <div class="portfolio" v-if="portfolio.length">
+        Some of the things i've worked on:
+        <ul>
+          <li v-for="item in portfolio"><a :href="item">{{item}}</a></li>
+        </ul>
+      </div>
+      <div class="">
+
+      </div>
+    </div>
+    <script type="text/javascript">
+      let app = new Vue({
+        el: '#app',
+        data: {
+          languages: {'dabbled': [], 'know': ['Python','HTML','javascript']},
+          libraries: [],
+          learning: [],
+          interests: [],
+          portfolio: [],
+        },
+        methods: {
+          loadJsonData: function() {
+            axios({
+              method: 'get',
+              url: 'EzUpdateData.json',
+            }).then((response) => {
+              let resp = response.data
+              console.log(resp)
+            })
+          }
+        },
+        created: function() {
+          this.loadJsonData()
+        }
+      })
+    </script>
   </body>
 </html>

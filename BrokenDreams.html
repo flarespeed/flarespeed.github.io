@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Holden Bock | webdev</title>
+    <link rel="stylesheet" href="highlight/styles/atom-one-dark.css">
+    <script src="highlight/highlight.pack.js"></script>
+    <style media="screen">
+      body{
+        margin: 0 0;
+      }
+      #main{
+        display: flex;
+        flex-direction: row-reverse;
+      }
+      pre{
+        margin: 0 0;
+      }
+      code{
+        height: 100vh;
+        width: 50vw;
+      }
+      #runSide{
+        width: 50vw;
+      }
+      pre {
+        white-space: pre-wrap;       /* css-3 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+      }
+      #codeSide{
+        word-wrap: normal;
+        overflow-y: auto;
+        overflow-x: visible;
+      }
+      .highlightForDelete{
+        background-color: slategrey;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <div id="runSide">
+        <button onclick="showOff()">Show off for me</button><button href="skip.html">Skip the theatrics, i just wanna read the resume-speak</button><br>
+        <script type="text/javascript">
+        let codeSide = document.getElementById('codeSide')
+        let runSide = document.getElementById('runSide')
+        function showOff() {
+          for (let index = 0, index<steps.length, index++) {
+            if (steps[index].type == 'add') {
+              for (let j = 0, j<steps[index].content.length, j++) {
+                prev = runSide.innerHTML
+                pos = steps[index].start + j
+                runSide.innerHTML = [prev.slice(0, pos), prev.slice(pos)].join(steps[index].content[j])
+                codeSide.innerText = runSide.innerHTML
+                hljs.highlightBlock(codeSide)
+              }
+            } else if (steps[i].type == 'delete') {
+              prev = runSide.innerHTML
+              pos = 0
+              codeSide.innerHTML = [prev.slice(0, pos), prev.slice(pos)].join('<div class="highlightForDelete">')
+            }
+          }
+        }
+        </script>
+      </div>
+      <div id="codebar">
+        <pre><code id="codeSide"></code></pre>
+      </div>
+    </div>
+    <script type="text/javascript">
+    let codeSide = document.getElementById('codeSide')
+    let runSide = document.getElementById('runSide')
+    let hiddenTextArea = document.getElementById('hiddenTextArea')
+    let initial_fill = ``
+    var steps = [{'type': 'delete', 'start': 0, 'end': 143 }]
+    codeSide.innerText = runSide.innerHTML
+    function initialize() {
+      for (let index = 0, index<initial_fill.length, index++) {
+        prev = runSide.innerHTML
+        runSide.innerHTML = [prev.slice(0, index), prev.slice(index)].join(initial_fill[index])
+        codeSide.innerText = runSide.innerHTML
+        hljs.highlightBlock(codeSide)
+      }
+    }
+    hljs.highlightBlock(codeSide)
+    </script>
+  </body>
+</html>
