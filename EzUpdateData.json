@@ -1,15 +1,25 @@
 {
-  'languages': {
-    'know': ['Python', 'javascript', 'HTML', 'CSS'],
-    'dabbled': ['C#']
-  },
-  'libraries': [
-    'django', 'django channels', 'Vue.js', 'axios'
-  ]
-  'learning': [
-    'PyTorch'
-  ]
-  'interests': [
-    'machine learning', 
-  ]
+   "languages":{
+      "know":[
+         "Python",
+         "javascript",
+         "HTML",
+         "CSS"
+      ],
+      "dabbled":[
+         "C#"
+      ]
+   },
+   "libraries":[
+      "django",
+      "django channels",
+      "Vue.js",
+      "axios"
+   ],
+   "learning":[
+      "PyTorch"
+   ],
+   "interests":[
+      "machine learning"
+   ]
 }

@@ -50,8 +50,28 @@
               method: 'get',
               url: 'EzUpdateData.json',
             }).then((response) => {
-              let resp = response.data
+              let resp = JSON.parse(response.data)
               console.log(resp)
+              if (resp.languages){
+                if (resp.languages.know){
+                  this.languages.know = resp.languages.know
+                }
+                if (resp.languages.dabbled){
+                  this.languages.dabbled = resp.languages.dabbled
+                }
+              }
+              if (resp.libraries){
+                this.libraries = resp.libraries
+              }
+              if (resp.learning){
+                this.learning = resp.learning
+              }
+              if (resp.interests){
+                this.interests = resp.interests
+              }
+              if (resp.portfolio) {
+                this.portfolio = resp.portfolio
+              }
             })
           }
         },
