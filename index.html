@@ -5,9 +5,29 @@
     <title>Holden Bock | webdev</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
     <style media="screen">
       body{
         margin: 0 0;
+        background-color: #293752;
+        color: white;
+        font-family: 'Questrial', sans-serif;
+        font-size: 32px;
+      }
+      ul{
+        margin: 0 0;
+      }
+      h3{
+        font-family: 'Prompt', sans-serif;
+        margin-bottom: 0.5rem;
+      }
+      div{
+        margin: 2rem;
+      }
+      #app{
+        max-width: 800px;
+        margin: 0.5rem auto;
       }
     </style>
   </head>
@@ -38,11 +58,15 @@
       let app = new Vue({
         el: '#app',
         data: {
-          languages: {'dabbled': [], 'know': ['Python','HTML','javascript']},
-          libraries: [],
-          learning: [],
-          interests: [],
-          portfolio: [],
+          languages: {'dabbled': ['C#'], 'know': ['Python','HTML','javascript']},
+          libraries: [
+             "django",
+             "Vue.js",
+             "axios"
+          ],
+          learning: ['pytorch'],
+          interests: ['AI'],
+          portfolio: ['https://github.com/flarespeed/WebBoardgameSim'],
         },
         methods: {
           loadJsonData: function() {
