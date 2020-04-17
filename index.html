@@ -38,8 +38,7 @@
         I'm a full stack web dev and aspiring indie game dev.
       </div>
       <div class="language">
-        <span v-if="languages.know.length">I have experience coding in <span v-for="(lang, index) in languages.know">{{lang}}<span v-if="index+1 != languages.know.length">, </span></span></span><span v-if="languages.dabbled.length">, and have dabbled in <span v-for="(lang, index) in languages.dabbled">{{lang}}<span v-if="index+1 != languages.dabbled.length">, </span></span></span><span v-if="languages.know.length || languages.dabbled.length">.</span><br>
-        <span v-if="libraries.length">I have experience using <span v-for="(lib, index) in libraries">{{lib}}<span v-if="index+1 != libraries.length">, </span></span>.</span>
+        <span v-if="languages.know.length">I have experience coding in <span v-for="(lang, index) in languages.know">{{lang}}<span v-if="index+1 != languages.know.length">, </span></span></span><span v-if="languages.dabbled.length">, and have dabbled in <span v-for="(lang, index) in languages.dabbled">{{lang}}<span v-if="index+1 != languages.dabbled.length">, </span></span></span><span v-if="languages.know.length || languages.dabbled.length">. </span><span v-if="libraries.length">I have experience using <span v-for="(lib, index) in libraries">{{lib}}<span v-if="index+1 != libraries.length">, </span></span>.</span>
       </div>
       <div class="learningAndInterests">
         <span v-if="learning.length">I am currently learning <span v-for="(learn, index) in learning">{{learn}}<span v-if="index+1 != learning.length">, </span></span><span v-if="interests.length"> and </span></span><span v-if="interests.length">I am interested in <span v-for="(interest, index) in interests">{{interest}}<span v-if="index+1 != interests.length">, </span></span></span><span v-if="learning.length || interests.length">.</span>
