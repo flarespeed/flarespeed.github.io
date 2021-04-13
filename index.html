@@ -35,10 +35,10 @@
     <div id="app">
       <h3>Hi, I'm Holden Bock.</h3>
       <div class="intro">
-        I'm a full stack web dev and aspiring indie game dev.
+        I'm a backend web dev, with front end capabilities.
       </div>
       <div class="language">
-        <span v-if="languages.know.length">I have experience coding in <span v-for="(lang, index) in languages.know">{{lang}}<span v-if="index+1 != languages.know.length">, </span></span></span><span v-if="languages.dabbled.length">, and have dabbled in <span v-for="(lang, index) in languages.dabbled">{{lang}}<span v-if="index+1 != languages.dabbled.length">, </span></span></span><span v-if="languages.know.length || languages.dabbled.length">. </span><span v-if="libraries.length">I have experience using <span v-for="(lib, index) in libraries">{{lib}}<span v-if="index+1 != libraries.length">, </span></span>.</span>
+        <span v-if="languages.know.length">I have experience coding in <span v-for="(lang, index) in languages.know">{{lang}}<span v-if="index+1 != languages.know.length">, <span v-if="!languages.dabbled.length">and </span></span></span></span><span v-if="!languages.know.length && languages.dabbled.length">I have experience coding in nothing</span><span v-if="languages.dabbled.length">, and have dabbled in <span v-for="(lang, index) in languages.dabbled"><span v-if="index-1 == languages.dabbled.length">and </span>{{lang}}<span v-if="index+1 != languages.dabbled.length">, </span></span></span><span v-if="languages.know.length || languages.dabbled.length">. </span><span v-if="libraries.length">I have experience using <span v-for="(lib, index) in libraries"><span v-if="index-1 == interests.length">and </span>{{lib}}<span v-if="index+1 != libraries.length">, </span></span>.</span>
       </div>
       <div class="learningAndInterests">
         <span v-if="learning.length">I am currently learning <span v-for="(learn, index) in learning">{{learn}}<span v-if="index+1 != learning.length">, </span></span><span v-if="interests.length"> and </span></span><span v-if="interests.length">I am interested in <span v-for="(interest, index) in interests">{{interest}}<span v-if="index+1 != interests.length">, </span></span></span><span v-if="learning.length || interests.length">.</span>
@@ -49,23 +49,45 @@
           <li v-for="item in portfolio"><a :href="item">{{item}}</a></li>
         </ul>
       </div>
-      <div class="">
-
+      <div class="play with">
+        <button v-on:click="clientControls = !clientControls">play with the data on this page (will revert on page reload)</button>
+        <div v-if="clientControls">
+          <div class="userControls">
+            languages: <br>
+            know: <span v-for="(item, index) in languages['know']">{{item}}<button v-on:click="deleteItem('languages', index, 'know')">delete</button></span><br><input type="text" v-model="knowIn" v-on:keyup.enter="addItem('languages', 'know')"><button v-on:click="addItem('languages', 'know')">add</button><br>
+            dabbled: <span v-for="(item, index) in languages['dabbled']">{{item}}<button v-on:click="deleteItem('languages', index, 'dabbled')">delete</button></span><br><input type="text" v-model="dabbleIn" v-on:keyup.enter="addItem('languages', 'dabbled')"><button v-on:click="addItem('languages', 'dabbled')">add</button>
+          </div>
+          <div class="userControls">
+            libraries: <span v-for="(item, index) in libraries">{{item}}<button v-on:click="deleteItem('libraries', index)">delete</button></span><br><input type="text" v-model="libraryIn" v-on:keyup.enter="addItem('libraries')"><button v-on:click="addItem('libraries')">add</button>
+          </div>
+          <div class="userControls">
+            learning: <span v-for="(item, index) in learning">{{item}}<button v-on:click="deleteItem('learning', index)">delete</button></span><br><input type="text" v-model="learningIn" v-on:keyup.enter="addItem('learning')"><button v-on:click="addItem('learning')">add</button>
+          </div>
+          <div class="userControls">
+            interests: <span v-for="(item, index) in interests">{{item}}<button v-on:click="deleteItem('interests', index)">delete</button></span><br><input type="text" v-model="interestIn" v-on:keyup.enter="addItem('interests')"><button v-on:click="addItem('interests')">add</button>
+          </div>
+          <div class="userControls">
+            portfolio: <span v-for="(item, index) in portfolio">{{item}}<button v-on:click="deleteItem('portfolio', index)">delete</button></span><br><input type="text" v-model="portfolioIn" v-on:keyup.enter="addItem('portfolio')"><button v-on:click="addItem('portfolio')">add</button>
+          </div>
+        </div>
       </div>
     </div>
     <script type="text/javascript">
       let app = new Vue({
         el: '#app',
         data: {
+          dabbleIn:'',
+          knowIn:'',
+          libraryIn:'',
+          learningIn:'',
+          interestIn:'',
+          portfolioIn:'',
           languages: {'dabbled': ['C#'], 'know': ['Python','HTML','javascript']},
-          libraries: [
-             "django",
-             "Vue.js",
-             "axios"
-          ],
+          libraries: ["django", "Vue.js", "axios"],
           learning: ['pytorch'],
           interests: ['AI'],
           portfolio: ['https://github.com/flarespeed/WebBoardgameSim'],
+          clientControls: false,
         },
         methods: {
           loadJsonData: function() {
@@ -96,6 +118,39 @@
                 this.portfolio = resp.portfolio
               }
             })
+          },
+          deleteItem: function(arr, index, key=false) {
+            if (key) {
+              this[arr][key].splice(index, 1)
+            } else {
+              this[arr].splice(index, 1)
+            }
+          },
+          addItem: function(arr, key=false) {
+            addition = ''
+            if (key == "know"){
+              addition = this.knowIn
+            }
+            if (key == "dabbled"){
+              addition = this.dabbleIn
+            }
+            if (arr == "libraries"){
+              addition = this.libraryIn
+            }
+            if (arr == "learning"){
+              addition = this.learningIn
+            }
+            if (arr == "interests"){
+              addition = this.interestIn
+            }
+            if (arr == "portfolio"){
+              addition = this.portfolioIn
+            }
+            if (key) {
+              this[arr][key].push(addition)
+            } else {
+              this[arr].push(addition)
+            }
           }
         },
         created: function() {
