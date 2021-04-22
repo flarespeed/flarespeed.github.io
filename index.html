@@ -49,6 +49,12 @@
           <li v-for="item in portfolio"><a :href="item">{{item}}</a></li>
         </ul>
       </div>
+      <div class="other" v-if="otherInfo.length">
+        Contacts etc.:
+        <ul>
+          <li v-for="item in otherInfo">{{item[0]}}: <a :href="item">{{item[1]}}</a></li>
+        </ul>
+      </div>
       <div class="play with">
         <button v-on:click="clientControls = !clientControls">play with the data on this page (will revert on page reload)</button>
         <div v-if="clientControls">
@@ -69,6 +75,9 @@
           <div class="userControls">
             portfolio: <span v-for="(item, index) in portfolio">{{item}}<button v-on:click="deleteItem('portfolio', index)">delete</button></span><br><input type="text" v-model="portfolioIn" v-on:keyup.enter="addItem('portfolio')"><button v-on:click="addItem('portfolio')">add</button>
           </div>
+          <div class="userControls">
+            portfolio: <span v-for="(item, index) in otherInfo">{{item[0]}}: {{item[1]}}<button v-on:click="deleteItem('otherInfo', index)">delete</button></span><br><input type="text" placeholder="label:" v-model="otherOne" v-on:keyup.enter="otherOneEnter"><input id="otherTwoId" type="text" placeholder="link" v-model="otherTwo" v-on:keyup.enter="addItem('otherInfo')"><button v-on:click="addItem('otherInfo')">add</button>
+          </div>
         </div>
       </div>
     </div>
@@ -82,11 +91,14 @@
           learningIn:'',
           interestIn:'',
           portfolioIn:'',
+          otherOne:'',
+          otherTwo:'',
           languages: {'dabbled': ['C#'], 'know': ['Python','HTML','javascript']},
           libraries: ["django", "Vue.js", "axios"],
           learning: ['pytorch'],
           interests: ['AI'],
           portfolio: ['https://github.com/flarespeed/WebBoardgameSim'],
+          otherInfo: [['Email','HoldenBockDev@gmail.com'],['LinkedIn','https://www.linkedin.com/in/boxfortking/'],['resume','https://resume.creddle.io/resume/e2hzfunliw8']],
           clientControls: false,
         },
         methods: {
@@ -126,6 +138,9 @@
               this[arr].splice(index, 1)
             }
           },
+          otherOneEnter: function() {
+            document.getElementById("otherTwoId").focus();
+          },
           addItem: function(arr, key=false) {
             addition = ''
             if (key == "know"){
@@ -146,7 +161,9 @@
             if (arr == "portfolio"){
               addition = this.portfolioIn
             }
-            if (key) {
+            if (arr == "otherInfo"){
+              this[arr].push([this.otherOne, this.otherTwo])
+            }else if (key) {
               this[arr][key].push(addition)
             } else {
               this[arr].push(addition)
