@@ -76,7 +76,7 @@
             portfolio: <span v-for="(item, index) in portfolio">{{item}}<button v-on:click="deleteItem('portfolio', index)">delete</button></span><br><input type="text" v-model="portfolioIn" v-on:keyup.enter="addItem('portfolio')"><button v-on:click="addItem('portfolio')">add</button>
           </div>
           <div class="userControls">
-            portfolio: <span v-for="(item, index) in otherInfo">{{item[0]}}: {{item[1]}}<button v-on:click="deleteItem('otherInfo', index)">delete</button></span><br><input type="text" placeholder="label:" v-model="otherOne" v-on:keyup.enter="otherOneEnter"><input id="otherTwoId" type="text" placeholder="link" v-model="otherTwo" v-on:keyup.enter="addItem('otherInfo')"><button v-on:click="addItem('otherInfo')">add</button>
+            other info: <span v-for="(item, index) in otherInfo">{{item[0]}}: {{item[1]}}<button v-on:click="deleteItem('otherInfo', index)">delete</button></span><br><input type="text" placeholder="label:" v-model="otherOne" v-on:keyup.enter="otherOneEnter"><input id="otherTwoId" type="text" placeholder="link" v-model="otherTwo" v-on:keyup.enter="addItem('otherInfo')"><button v-on:click="addItem('otherInfo')">add</button>
           </div>
         </div>
       </div>
